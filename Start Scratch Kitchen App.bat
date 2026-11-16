@@ -20,6 +20,21 @@ if not exist node_modules (
   )
 )
 
+call npx expo whoami >nul 2>nul
+if errorlevel 1 (
+  echo.
+  echo ============================================================
+  echo  Sign in to Expo with the same account as Expo Go on your phone.
+  echo  Type your Expo username or email, press Enter, then your password.
+  echo ============================================================
+  call npx expo login
+  if errorlevel 1 (
+    echo Sign-in did not finish. Double-click this file to try again.
+    pause
+    exit /b 1
+  )
+)
+
 echo.
 echo ============================================================
 echo  Starting the Scratch Kitchen Staff app.
