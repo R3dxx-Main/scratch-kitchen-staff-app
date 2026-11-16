@@ -1,0 +1,16 @@
+{
+  "name": "Scratch Kitchen Staff Hub",
+  "short_name": "SK Staff",
+  "description": "Orders, items needed, inventory, customers and reports for the Scratch Kitchen team.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#FAF6F3",
+  "theme_color": "#D4202A",
+  "icons": [
+    { "src": "/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "/icon-512.png", "sizes": "512x512", "type": "image/png" },
+    { "src": "/icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}

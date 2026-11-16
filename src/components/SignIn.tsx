@@ -4,6 +4,7 @@ import { Image, KeyboardAvoidingView, Platform, ScrollView, StyleSheet, Text, Vi
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useAuth } from '../data/auth';
 import { colors, fonts } from '../theme';
+import { InstallTip } from './InstallTip';
 import { Button, Card, Field, Muted, Notice } from './ui';
 
 export function SignIn() {
@@ -43,6 +44,7 @@ export function SignIn() {
             <Button label={busy ? 'Signing in…' : 'Sign in'} onPress={submit} disabled={busy} big />
           </Card>
           <Muted style={{ textAlign: 'center', marginTop: 18, maxWidth: 440 }}>No account yet? Ask your manager to add you.</Muted>
+          <InstallTip />
         </ScrollView>
       </KeyboardAvoidingView>
     </View>

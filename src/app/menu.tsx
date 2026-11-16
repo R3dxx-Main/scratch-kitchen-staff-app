@@ -3,6 +3,7 @@ import { Href, router } from 'expo-router';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 import { AppShell } from '../components/AppShell';
 import { ChevronIcon } from '../components/icons';
+import { InstallTip } from '../components/InstallTip';
 import { Button, H1, Intro, Muted } from '../components/ui';
 import { useAuth } from '../data/auth';
 import { useStore } from '../data/store';
@@ -59,6 +60,7 @@ export default function Menu() {
           </View>
         ))}
       </View>
+      <InstallTip />
       <View style={[st.group, { padding: 16, gap: 10, marginTop: 14 }]}>
         <Text accessibilityRole="header" style={[st.groupTitle, { padding: 0 }]}>Signed in</Text>
         <Muted>

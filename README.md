@@ -47,6 +47,15 @@ If the phone can't connect (different Wi-Fi, or a work network), close that wind
 
 Run `npx expo start --web` to open it in a browser.
 
+## Install it (download)
+
+Double-click these in the project folder on Windows:
+
+- **`Build Android app.bat`** builds an Android install file (APK) in Expo's cloud. When it is finished, open the build on expo.dev on an Android phone and tap **Install**. Free plan: up to 15 Android builds a month.
+- **`Publish web app.bat`** puts the web version online at a `.expo.app` address. On iPhone or iPad open it in Safari → Share → **Add to Home Screen**; on Android, Chrome → **Install app**. It opens full screen with the logo and uses the same database and sign-in.
+
+A native iPhone app needs an Apple Developer account ($99 a year) for TestFlight or the App Store; until then, use the home-screen web app.
+
 ## Build for the App Store and Google Play
 
 The app is set up for [EAS Build](https://docs.expo.dev/build/introduction/), Expo's cloud build service, so no Xcode or Android Studio is needed:
