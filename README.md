@@ -49,6 +49,9 @@ Run `npx expo start --web` to open it in a browser.
 
 ## Install it (download)
 
+- **Web app (any phone, iPhone included):** https://scratch-kitchen-staff.expo.app
+- **Android install file:** the newest Android build on expo.dev → project `scratch-kitchen-staff` → Builds → Install
+
 Double-click these in the project folder on Windows:
 
 - **`Build Android app.bat`** builds an Android install file (APK) in Expo's cloud. When it is finished, open the build on expo.dev on an Android phone and tap **Install**. Free plan: up to 15 Android builds a month.
