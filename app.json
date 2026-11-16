@@ -1,0 +1,40 @@
+{
+  "expo": {
+    "name": "Scratch Kitchen Staff",
+    "slug": "scratch-kitchen-staff",
+    "scheme": "scratchkitchenstaff",
+    "version": "1.0.0",
+    "orientation": "default",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light",
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.scratchkitchen.staff"
+    },
+    "android": {
+      "package": "com.scratchkitchen.staff",
+      "adaptiveIcon": {
+        "backgroundColor": "#FFFFFF",
+        "foregroundImage": "./assets/adaptive-icon.png"
+      },
+      "predictiveBackGestureEnabled": false
+    },
+    "web": {
+      "favicon": "./assets/favicon.png",
+      "output": "single"
+    },
+    "plugins": [
+      "expo-router",
+      "expo-font",
+      "expo-sharing",
+      [
+        "expo-splash-screen",
+        {
+          "image": "./assets/splash-icon.png",
+          "imageWidth": 220,
+          "backgroundColor": "#FFFFFF"
+        }
+      ]
+    ]
+  }
+}
