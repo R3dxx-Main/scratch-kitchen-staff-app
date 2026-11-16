@@ -5,9 +5,9 @@ echo ============================================================
 echo  Sign in to Expo with the SAME account as Expo Go on your phone
 echo  (your phone shows it is signed in as r3dxx).
 echo.
-echo  1. Type your Expo username or email and press Enter.
-echo  2. Type your Expo password and press Enter.
-echo     The password does not show while you type. That is normal.
+echo  1. A page on expo.dev opens in your web browser.
+echo     If it does not, click the long expo.dev link shown below.
+echo  2. Sign in there, then come back to this window.
 echo ============================================================
 echo.
 call npx expo login

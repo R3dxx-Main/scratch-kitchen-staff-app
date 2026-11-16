@@ -25,7 +25,7 @@ if errorlevel 1 (
   echo.
   echo ============================================================
   echo  Sign in to Expo with the same account as Expo Go on your phone.
-  echo  Type your Expo username or email, press Enter, then your password.
+  echo  A page on expo.dev opens in your browser: sign in there.
   echo ============================================================
   call npx expo login
   if errorlevel 1 (
