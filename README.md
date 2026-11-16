@@ -21,7 +21,16 @@ Printing uses the phone's own print screen (AirPrint on iPhone and iPad, the pri
 
 This version runs on **sample data** (the same sample data as the Staff Hub website) kept in memory, so changes reset when the app restarts. All data goes through one file, `src/data/store.tsx`. Connecting a shared database (Supabase, Firebase or the Staff Hub's own backend) means changing that file only, not the screens.
 
-## Try it on a phone
+## Try it on a phone (Windows, no typing)
+
+1. On this GitHub page click the green **Code** button → **Download ZIP**, then right-click the downloaded file → **Extract All**.
+2. Install **Expo Go** on your phone from the App Store or Google Play.
+3. In the extracted folder, double-click **`Start Scratch Kitchen App.bat`**. The first time it installs packages for a few minutes.
+4. When the QR code appears, scan it: on iPhone with the Camera app, on Android inside Expo Go. If Windows asks about network access, click **Allow**.
+
+If the phone can't connect (different Wi-Fi, or a work network), close that window and double-click **`Start (if phone cannot connect).bat`** instead. To see the app in a browser, use **`Open in web browser.bat`**.
+
+## Try it on a phone (any computer, with a terminal)
 
 1. Install **Node.js 20+** on your computer.
 2. In this folder run:
