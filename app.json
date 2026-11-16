@@ -41,6 +41,17 @@
           "backgroundColor": "#FFFFFF"
         }
       ]
-    ]
+    ],
+    "extra": {
+      "router": {
+        "asyncRoutes": {
+          "web": true
+        }
+      },
+      "eas": {
+        "projectId": "cc526b05-ec97-4c1a-805d-38aad56d45be"
+      }
+    },
+    "owner": "r3dxx"
   }
 }
