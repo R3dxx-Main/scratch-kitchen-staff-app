@@ -12,7 +12,6 @@ import { Button, Field, Label, Muted, Notice, Segmented, Stepper } from './ui';
 
 export function confirm(title: string, message: string, ok: string, onOk: () => void) {
   if (Platform.OS === 'web') {
-    // eslint-disable-next-line no-alert
     if (typeof window !== 'undefined' && window.confirm(`${title}\n\n${message}`)) onOk();
     return;
   }

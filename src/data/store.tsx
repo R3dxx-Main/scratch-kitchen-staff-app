@@ -22,6 +22,17 @@ const blankDraft = (): OrderDraft => ({
   scope: 'one',
 });
 
+const nextId = (list: { id: number }[]) => list.reduce((m, x) => Math.max(m, x.id), 0) + 1;
+
+/** When a repeating order is finished or skipped, the next one in the series is added. */
+const withNextInSeries = (list: Order[], order: Order): Order[] => {
+  if (order.repeat === 'Does not repeat' || !order.seriesId) return list;
+  const date = nextRepeatDate(order.dueDate, order.repeat);
+  if (list.some((o) => o.seriesId === order.seriesId && o.dueDate === date)) return list;
+  const id = nextId(list);
+  return [...list, { ...order, id, dueDate: date, status: 0, edited: false, lines: order.lines.map((l) => ({ ...l })) }];
+};
+
 function useStoreValue() {
   const [orders, setOrders] = useState<Order[]>(sampleOrders);
   const [needs, setNeeds] = useState<Need[]>(sampleNeeds);
@@ -32,21 +43,11 @@ function useStoreValue() {
   const [draft, setDraftState] = useState<OrderDraft>(blankDraft);
   const [userName] = useState('[Your name]');
 
-  const nextId = (list: { id: number }[]) => list.reduce((m, x) => Math.max(m, x.id), 0) + 1;
 
   // ---------- Orders ----------
   const setStatus = useCallback((id: number, status: OrderStatus) => {
     setOrders((list) => list.map((o) => (o.id === id ? { ...o, status } : o)));
   }, []);
-
-  /** When a repeating order is finished or skipped, the next one in the series is added. */
-  const withNextInSeries = (list: Order[], order: Order): Order[] => {
-    if (order.repeat === 'Does not repeat' || !order.seriesId) return list;
-    const date = nextRepeatDate(order.dueDate, order.repeat);
-    if (list.some((o) => o.seriesId === order.seriesId && o.dueDate === date)) return list;
-    const id = nextId(list);
-    return [...list, { ...order, id, dueDate: date, status: 0, edited: false, lines: order.lines.map((l) => ({ ...l })) }];
-  };
 
   const advanceOrder = useCallback((id: number) => {
     setOrders((list) => {

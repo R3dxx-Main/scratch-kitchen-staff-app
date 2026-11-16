@@ -26,7 +26,8 @@ export default function AddNeed() {
       return;
     }
     addNeed({ item, qty: String(qty), dept: team });
-    router.canGoBack() ? router.back() : router.navigate('/needs');
+    if (router.canGoBack()) router.back();
+    else router.navigate('/needs');
   };
 
   return (

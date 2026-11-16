@@ -21,7 +21,8 @@ export default function ChooseCustomer() {
       const match = customers.find((c) => c.name === name);
       setDraft({ customer: name, ...(match ? { type: match.type } : {}) });
     }
-    router.canGoBack() ? router.back() : router.navigate('/orders/edit');
+    if (router.canGoBack()) router.back();
+    else router.navigate('/orders/edit');
   };
 
   return (
