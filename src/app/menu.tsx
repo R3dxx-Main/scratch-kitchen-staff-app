@@ -3,7 +3,8 @@ import { Href, router } from 'expo-router';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 import { AppShell } from '../components/AppShell';
 import { ChevronIcon } from '../components/icons';
-import { H1, Intro } from '../components/ui';
+import { Button, H1, Intro, Muted } from '../components/ui';
+import { useAuth } from '../data/auth';
 import { useStore } from '../data/store';
 import { colors, fonts } from '../theme';
 
@@ -11,6 +12,7 @@ type Item = { label: string; href?: Href; badge?: number };
 
 export default function Menu() {
   const { needs } = useStore();
+  const { session, displayName, signOut } = useAuth();
   const openNeeds = needs.filter((n) => !n.done).length;
   const groups: { title: string; items: Item[] }[] = [
     { title: 'Home', items: [{ label: 'Team messages', href: '/' }] },
@@ -27,7 +29,7 @@ export default function Menu() {
   return (
     <AppShell section="Menu">
       <H1>Menu</H1>
-      <Intro>Every part of the Staff Hub. Sections marked Coming soon are on the website and will be added to the app next.</Intro>
+      <Intro>Every part of the Staff Hub. Sections marked Coming soon will be added to the app next.</Intro>
       <View style={{ gap: 14 }}>
         {groups.map((g) => (
           <View key={g.title} style={st.group}>
@@ -56,6 +58,13 @@ export default function Menu() {
             )}
           </View>
         ))}
+      </View>
+      <View style={[st.group, { padding: 16, gap: 10, marginTop: 14 }]}>
+        <Text accessibilityRole="header" style={[st.groupTitle, { padding: 0 }]}>Signed in</Text>
+        <Muted>
+          {displayName} · {session?.user.email}
+        </Muted>
+        <Button label="Sign out" variant="outlineDark" onPress={signOut} />
       </View>
     </AppShell>
   );

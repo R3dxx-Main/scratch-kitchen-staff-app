@@ -17,9 +17,14 @@ On a **tablet held sideways** (900 points wide or more) the app switches to the 
 
 Printing uses the phone's own print screen (AirPrint on iPhone and iPad, the print service on Android), so staff use the printers they already have set up. PDF and CSV open the share sheet, where they can be saved to Files, emailed or sent.
 
-## Data
+## Data and staff sign-in
 
-This version runs on **sample data** (the same sample data as the Staff Hub website) kept in memory, so changes reset when the app restarts. All data goes through one file, `src/data/store.tsx`. Connecting a shared database (Supabase, Firebase or the Staff Hub's own backend) means changing that file only, not the screens.
+All data lives in the shared **Supabase** database (project `scratch-kitchen-staff-app`), so every phone and tablet sees the same orders, items, inventory, customers, messages and reports. Changes appear on other devices within a second or two.
+
+- **Staff accounts:** public sign-up is turned off. To add someone, open the Supabase dashboard → **Authentication** → **Users** → **Add user** → **Create new user**, enter their email and a password, tick **Auto Confirm User**, and give them those details. To show their name on Team messages, add `{"name": "Their Name"}` under the user's metadata; otherwise the part of their email before the @ is used.
+- **Security:** every table can only be read or changed by signed-in staff (row level security). The publishable key in `src/lib/supabase.ts` is designed to be inside the app.
+- **Database setup:** `supabase/setup.sql` creates the tables, security rules and starting data. It has already been run; it is safe to run again.
+- **Code:** all data goes through `src/data/store.tsx`; sign-in is `src/data/auth.tsx`.
 
 ## Try it on a phone (Windows, no typing)
 
@@ -66,8 +71,9 @@ src/app/              screens (Expo Router: each file is a screen)
   outputs/            end of day, print
   menu.tsx, support.tsx
 src/components/       app frame (top bar, section menu, bottom bar / side rail), order card and form, buttons and inputs, icons
-src/data/             types, sample data, store
-src/lib/              dates; report building, printing, PDF and CSV
+src/data/             types, staff sign-in, live data store
+src/lib/              Supabase connection, dates, report building, printing, PDF and CSV
+supabase/setup.sql    database tables, security rules and starting data
 assets/               logo, app icon, splash
 ```
 

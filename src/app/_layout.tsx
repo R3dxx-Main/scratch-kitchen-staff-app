@@ -5,6 +5,8 @@ import { SplashScreen, Stack } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import { useEffect } from 'react';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
+import { SignIn } from '../components/SignIn';
+import { AuthProvider, useAuth } from '../data/auth';
 import { StoreProvider } from '../data/store';
 import { colors } from '../theme';
 
@@ -20,24 +22,39 @@ export default function RootLayout() {
     Inter_700Bold,
   });
 
-  useEffect(() => {
-    if (loaded || error) SplashScreen.hideAsync();
-  }, [loaded, error]);
-
   if (!loaded && !error) return null;
 
   return (
     <SafeAreaProvider>
-      <StoreProvider>
+      <AuthProvider>
         <StatusBar style="light" />
-        <Stack screenOptions={{ headerShown: false, contentStyle: { backgroundColor: colors.cream }, animation: 'none' }}>
-          <Stack.Screen name="orders/edit" options={{ animation: 'slide_from_right' }} />
-          <Stack.Screen name="orders/customer" options={{ animation: 'slide_from_right' }} />
-          <Stack.Screen name="needs/add" options={{ animation: 'slide_from_right' }} />
-          <Stack.Screen name="outputs/print" options={{ animation: 'slide_from_right' }} />
-          <Stack.Screen name="customers/edit" options={{ animation: 'slide_from_right' }} />
-        </Stack>
-      </StoreProvider>
+        <Gate />
+      </AuthProvider>
     </SafeAreaProvider>
+  );
+}
+
+/** Shows the sign-in screen until a staff member is signed in. */
+function Gate() {
+  const { session, loading } = useAuth();
+
+  useEffect(() => {
+    if (!loading) SplashScreen.hideAsync();
+  }, [loading]);
+
+  if (loading) return null;
+  if (!session) return <SignIn />;
+
+  // A fresh store for each signed-in person, so nobody sees the last person's screens.
+  return (
+    <StoreProvider key={session.user.id}>
+      <Stack screenOptions={{ headerShown: false, contentStyle: { backgroundColor: colors.cream }, animation: 'none' }}>
+      <Stack.Screen name="orders/edit" options={{ animation: 'slide_from_right' }} />
+      <Stack.Screen name="orders/customer" options={{ animation: 'slide_from_right' }} />
+      <Stack.Screen name="needs/add" options={{ animation: 'slide_from_right' }} />
+      <Stack.Screen name="outputs/print" options={{ animation: 'slide_from_right' }} />
+      <Stack.Screen name="customers/edit" options={{ animation: 'slide_from_right' }} />
+      </Stack>
+    </StoreProvider>
   );
 }

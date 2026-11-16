@@ -9,15 +9,13 @@ if errorlevel 1 (
   exit /b 1
 )
 
-if not exist node_modules (
-  echo Installing the app's packages. The first time takes a few minutes...
-  call npm install
-  if errorlevel 1 (
-    echo.
-    echo The install did not finish. Check the internet connection and double-click this file again.
-    pause
-    exit /b 1
-  )
+echo Checking the app's packages (the first time takes a few minutes)...
+call npm install --no-audit --no-fund
+if errorlevel 1 (
+  echo.
+  echo The install did not finish. Check the internet connection and double-click this file again.
+  pause
+  exit /b 1
 )
 
 call npx expo whoami >nul 2>nul

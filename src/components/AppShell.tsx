@@ -77,6 +77,7 @@ export function AppShell({
   const content = (
     <View style={{ flex: 1 }}>
       {items.length > 1 && <SectionMenu items={items} active={sub} />}
+      <StatusLine />
       <KeyboardAvoidingView style={{ flex: 1 }} behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
         {scroll ? (
           <ScrollView contentContainerStyle={[st.content, wide && st.contentWide]} keyboardShouldPersistTaps="handled">
@@ -89,7 +90,7 @@ export function AppShell({
             {children}
           </View>
         )}
-        {footer && <View style={[st.footer, !wide && section === 'Menu' ? null : null]}>{footer}</View>}
+        {footer && <View style={st.footer}>{footer}</View>}
       </KeyboardAvoidingView>
     </View>
   );
@@ -110,6 +111,29 @@ export function AppShell({
       )}
     </View>
   );
+}
+
+/** "Loading…" while data arrives, and a message if something was not saved. */
+function StatusLine() {
+  const { loading, error, clearError } = useStore();
+  if (error) {
+    return (
+      <View accessibilityLiveRegion="assertive" style={[st.status, { backgroundColor: colors.activeTint }]}>
+        <Text style={[st.statusText, { color: colors.redDark }]}>{error}</Text>
+        <Pressable accessibilityRole="button" accessibilityLabel="Dismiss message" onPress={clearError} style={st.statusBtn}>
+          <Text style={[st.statusText, { color: colors.redDark, fontFamily: fonts.bold }]}>OK</Text>
+        </Pressable>
+      </View>
+    );
+  }
+  if (loading) {
+    return (
+      <View style={st.status}>
+        <Text style={st.statusText}>Loading the latest from the kitchen…</Text>
+      </View>
+    );
+  }
+  return null;
 }
 
 function TopBar({ topInset, wide }: { topInset: number; wide: boolean }) {
@@ -241,6 +265,9 @@ const st = StyleSheet.create({
   tabText: { color: colors.railIcon, fontFamily: fonts.medium, fontSize: 12 },
   rail: { width: 84, backgroundColor: colors.ink, alignItems: 'center', gap: 4, paddingTop: 10 },
   railItem: { width: 72, minHeight: 66, borderRadius: 12, alignItems: 'center', justifyContent: 'center', gap: 3 },
+  status: { flexDirection: 'row', alignItems: 'center', gap: 10, paddingHorizontal: 16, paddingVertical: 8, backgroundColor: colors.tableHead },
+  statusText: { flex: 1, fontFamily: fonts.semibold, fontSize: 14, color: colors.ink },
+  statusBtn: { minHeight: 44, minWidth: 48, alignItems: 'center', justifyContent: 'center' },
   back: { alignSelf: 'flex-start', minHeight: TAP, flexDirection: 'row', alignItems: 'center', gap: 4, marginLeft: -6, paddingRight: 8, marginTop: -10 },
   backText: { fontFamily: fonts.semibold, fontSize: 15, color: colors.ink },
 });

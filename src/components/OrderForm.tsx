@@ -24,15 +24,18 @@ export function confirm(title: string, message: string, ok: string, onOk: () => 
 export function OrderForm({ onDone }: { onDone: () => void }) {
   const { draft, setDraft, saveDraft, inventory, deleteOrder, today } = useStore();
   const [error, setError] = useState<string | null>(null);
+  const [busy, setBusy] = useState(false);
   const editing = draft.editingId != null;
   const repeats = draft.repeat !== 'Does not repeat';
 
-  const save = () => {
+  const save = async () => {
     if (draft.dueDate && !parseISODate(draft.dueDate)) {
       setError('Type the due date as year-month-day, for example 2026-11-24.');
       return;
     }
-    const msg = saveDraft();
+    setBusy(true);
+    const msg = await saveDraft();
+    setBusy(false);
     setError(msg);
     if (!msg) onDone();
   };
@@ -102,7 +105,7 @@ export function OrderForm({ onDone }: { onDone: () => void }) {
       </View>
 
       {error && <Notice text={error} tone="warn" />}
-      <Button label={editing ? 'Save changes' : 'Add order'} onPress={save} big />
+      <Button label={busy ? 'Saving…' : editing ? 'Save changes' : 'Add order'} onPress={save} disabled={busy} big />
       {editing && (
         <Button
           label="Delete order"
